@@ -6,27 +6,27 @@ if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-//Cocokin dengan database
-$cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE email = '$email' AND password = '$password'");
-//Hitung jumlah data
-$hitung = mysqli_num_rows($cekdatabase);
+    //Cocokin dengan database
+    $cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE email = '$email' AND password = '$password'");
+    //Hitung jumlah data
+    $hitung = mysqli_num_rows($cekdatabase);
 
     if($hitung > 0) {
+        $data = mysqli_fetch_assoc($cekdatabase);
         //login sukses
         $_SESSION['log'] = 'True';
+        $_SESSION['role'] = $data['role']; // Simpan role ke session
         header('location:index.php');
-        //login gagal
-    }else{        
+    } else {        
         header('location:login.php');
     };
 };
 
 if(!isset($_SESSION['log'])) {
 
-}else {
+} else {
     header('location:index.php');
 }
-
 ?>
 
 <!DOCTYPE html>

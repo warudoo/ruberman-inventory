@@ -24,7 +24,7 @@ require 'admin_cek.php';
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-image: url('assets/img/blueback.jpg'); background-size: cover; background-repeat: no-repeat;">
             <!-- Navbar Brand-->
-             <a class="navbar-brand ps-3" href="index.php">
+            <a class="navbar-brand ps-3" href="index.php">
                 <img src="assets/img/ruberman.png" alt="ruberman" height="40" class="d-inline-block align-top">
             </a>
             <!-- Sidebar Toggle-->
@@ -82,7 +82,6 @@ require 'admin_cek.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                         <!-- Custom Header for kelola admin -->
                         <div class="custom-header-admin mb-4 mt-4 d-flex align-items-center">
                             <div class="header-shape-admin">
                                 <i class="fas fa-user-cog header-icon-admin"></i>
@@ -145,7 +144,6 @@ require 'admin_cek.php';
                             }
                         </style>
                             <div class="card-header">
-                              <!-- Button to Open the Modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             <i class="fas fa-plus"></i> <i class="fas fa-user"></i> Tambah Admin
                         </button>
