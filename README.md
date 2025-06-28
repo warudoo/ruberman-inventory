@@ -70,15 +70,3 @@ git clone [https://github.com/username/ruberman-inventory.git](https://github.co
   - Anda bisa login menggunakan akun yang sudah Anda buat. Jika belum ada, Anda bisa menambahkannya langsung melalui database di tabel `login` dengan password yang sudah di-hash menggunakan `PASSWORD_BCRYPT`.
 
 <!-- end list -->
-
-```
-
-### Perubahan Utama:
-
-1.  **Header dengan Badges:** Menambahkan lencana untuk teknologi utama (PHP, MySQL, Bootstrap, JS) agar terlihat menarik secara visual.
-2.  **Struktur Heading yang Jelas:** Menggunakan `##` dan emoji untuk membuat setiap bagian (Fitur, Teknologi, Instalasi) menjadi lebih jelas dan mudah ditemukan.
-3.  **Tabel Teknologi:** Mengubah daftar teknologi menjadi tabel yang rapi untuk meningkatkan keterbacaan.
-4.  **Format Perintah:** Menempatkan perintah-perintah seperti `git clone` dan contoh kode PHP di dalam blok kode yang sesuai agar mudah disalin.
-5.  **Langkah Instalasi Bernomor:** Membuat langkah-langkah instalasi menjadi daftar bernomor agar alurnya mudah diikuti.
-6.  **Penekanan (Bold):** Memberi penekanan pada nama file, direktori, dan teknologi penting untuk memandu pembaca.
-```
