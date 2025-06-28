@@ -190,7 +190,7 @@ require 'includes/cek.php';
                                             if($gambar == null){
                                                 $img = 'Tidak Ada Gambar';
                                             } else {
-                                                $img = '<img src="upload/'.$gambar.'" class="zoomable">';
+                                                $img = '<img src="uploads/'.$gambar.'" class="zoomable">';
                                             }
                                     ?>
                                     <tr>

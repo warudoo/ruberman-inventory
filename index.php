@@ -18,7 +18,7 @@ if (isset($_POST['addnewbarang'])) {
     $new_file_name = uniqid() . '.' . $ext;
 
     if (in_array($ext, $allowed_ext)) {
-        $upload_path = 'upload/' . $new_file_name;
+        $upload_path = 'uploads/' . $new_file_name;
         if (move_uploaded_file($file_tmp, $upload_path)) {
             $addtotable = mysqli_query($conn, "INSERT INTO stock (namabarang, deskripsi, stock, image) VALUES ('$namabarang', '$deskripsi', '$stock', '$new_file_name')");
             if ($addtotable) {
