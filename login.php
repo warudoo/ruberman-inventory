@@ -1,30 +1,38 @@
 <?php
-require 'includes/function.php';
+require 'function.php';
 
-//cek login
+// Cek login
 if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    //Cocokin dengan database
-    $cekdatabase = mysqli_query($conn, "SELECT * FROM login WHERE email = '$email' AND password = '$password'");
-    //Hitung jumlah data
-    $hitung = mysqli_num_rows($cekdatabase);
+    // Menyiapkan statement untuk mencegah SQL Injection
+    $stmt = mysqli_prepare($conn, "SELECT * FROM login WHERE email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-    if($hitung > 0) {
-        $data = mysqli_fetch_assoc($cekdatabase);
-        //login sukses
-        $_SESSION['log'] = 'True';
-        $_SESSION['role'] = $data['role']; // Simpan role ke session
-        header('location:index.php');
-    } else {        
-        header('location:login.php');
-    };
+    // Cek apakah email ditemukan
+    if (mysqli_num_rows($result) > 0) {
+        $data = mysqli_fetch_assoc($result);
+
+        // Verifikasi password (lihat poin 2)
+        if (password_verify($password, $data['password'])) {
+            // Login sukses
+            $_SESSION['log'] = 'True';
+            $_SESSION['role'] = $data['role']; // Pastikan Anda sudah menambahkan kolom 'role'
+            header('location:index.php');
+            exit();
+        }
+    }
+    
+    // Jika email atau password salah, kembali ke login
+    // Anda bisa tambahkan notifikasi error di sini
+    header('location:login.php');
+    exit();
 };
 
-if(!isset($_SESSION['log'])) {
-
-} else {
+if(isset($_SESSION['log'])) {
     header('location:index.php');
 }
 ?>
