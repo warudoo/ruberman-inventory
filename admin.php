@@ -1,6 +1,6 @@
 <?php
 require 'function.php';
-
+require 'admin_cek.php'; 
 ?>
 
 <!DOCTYPE html>
