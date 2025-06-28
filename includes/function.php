@@ -339,13 +339,17 @@ if(isset($_POST['addadmin'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $queryinsert = mysqli_query($conn, "INSERT INTO login (email, password) VALUES ('$email', '$password')");
+    // Hash password sebelum disimpan
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    if($queryinsert){
-        // if berhasil
+    // Gunakan prepared statement
+    $stmt = mysqli_prepare($conn, "INSERT INTO login (email, password, role) VALUES (?, ?, 'admin')"); // Asumsi role 'admin'
+    mysqli_stmt_bind_param($stmt, "ss", $email, $hashed_password);
+    $exec = mysqli_stmt_execute($stmt);
+
+    if($exec){
         header('location:admin.php');
-    } else{
-        // if gagal  
+    } else {
         header('location:admin.php');
     }
 }
