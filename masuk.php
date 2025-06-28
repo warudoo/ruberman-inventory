@@ -192,7 +192,7 @@ require 'includes/cek.php';
                                                 $img = '-';
                                             } else {
                                                 // jika ada gambar
-                                                $img = '<img src="images/'.$gambar.'" class="zoomable">';
+                                                $img = '<img src="upload/'.$gambar.'" class="zoomable">';
                                             }
 
 
