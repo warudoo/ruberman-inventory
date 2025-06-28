@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require 'includes/function.php';
 
 ?>
 

@@ -34,7 +34,7 @@ if(isset($_POST['addnewbarang'])) {
         if(in_array($ekstensi, $allowed_extension) === true) {
             // validasi ukuran file
             if($ukuran < 15000000) {
-                move_uploaded_file($file_tmp, 'images/'.$image); 
+                move_uploaded_file($file_tmp, 'upload/'.$image); 
 
                 $addtotable = mysqli_query($conn, "INSERT INTO stock (namabarang, deskripsi, stock, image) VALUES ('$namabarang', '$deskripsi', '$stock', '$image')");
                 if($addtotable){

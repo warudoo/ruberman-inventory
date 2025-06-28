@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require 'includes/function.php';
 
 // Pastikan koneksi database sudah ada di function.php dan variabel $conn tersedia
 
