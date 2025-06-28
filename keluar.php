@@ -1,6 +1,6 @@
 <?php
 require 'includes/function.php';
-
+require 'includes/cek.php';
 ?>
 
 <!DOCTYPE html>

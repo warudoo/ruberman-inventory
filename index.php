@@ -1,5 +1,6 @@
 <?php
 require 'includes/function.php';
+require 'includes/cek.php';
 
 // Pastikan koneksi database sudah ada di function.php dan variabel $conn tersedia
 
