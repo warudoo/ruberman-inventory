@@ -1,5 +1,5 @@
 <?php
-require 'function.php';
+require 'includes/function.php';
 
 // Cek login
 if(isset($_POST['login'])) {
@@ -15,8 +15,7 @@ if(isset($_POST['login'])) {
     // Cek apakah email ditemukan
     if (mysqli_num_rows($result) > 0) {
         $data = mysqli_fetch_assoc($result);
-
-        // Verifikasi password (lihat poin 2)
+        // Verifikasi password
         if (password_verify($password, $data['password'])) {
             // Login sukses
             $_SESSION['log'] = 'True';

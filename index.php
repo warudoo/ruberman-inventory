@@ -17,7 +17,7 @@ if (isset($_POST['addnewbarang'])) {
     $new_file_name = uniqid() . '.' . $ext;
 
     if (in_array($ext, $allowed_ext)) {
-        $upload_path = 'images/' . $new_file_name;
+        $upload_path = 'upload/' . $new_file_name;
         if (move_uploaded_file($file_tmp, $upload_path)) {
             $addtotable = mysqli_query($conn, "INSERT INTO stock (namabarang, deskripsi, stock, image) VALUES ('$namabarang', '$deskripsi', '$stock', '$new_file_name')");
             if ($addtotable) {
@@ -180,7 +180,7 @@ if (isset($_POST['addnewbarang'])) {
                                         if($gambar == null){ 
                                             $img = '-';
                                         } else {
-                                            $img = '<img src="images/'.$gambar.'" class="zoomable">';
+                                            $img = '<img src="upload/'.$gambar.'" class="zoomable">';
                                         }
                                     ?>
                                     <tr>
