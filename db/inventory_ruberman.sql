@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2025 at 01:19 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 28 Jun 2025 pada 18.13
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `iventory`
+-- Database: `inventory_ruberman`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keluar`
+-- Struktur dari tabel `keluar`
 --
 
 CREATE TABLE `keluar` (
@@ -36,45 +36,37 @@ CREATE TABLE `keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `keluar`
+-- Dumping data untuk tabel `keluar`
 --
 
 INSERT INTO `keluar` (`idkeluar`, `idbarang`, `tanggal`, `penerima`, `qty`) VALUES
-(22, 38, '2025-05-11 03:03:44', 'chive', 2),
-(23, 39, '2025-05-11 03:04:42', 'chive', 4),
-(24, 40, '2025-05-11 03:14:20', 'chive', 2),
-(27, 41, '2025-05-11 03:23:28', 'chive', 200),
-(28, 42, '2025-05-11 04:46:29', 'chive', 200),
-(29, 41, '2025-05-11 04:49:06', 'chive', 10),
-(30, 43, '2025-05-11 06:02:48', 'chive', 300),
-(31, 44, '2025-05-14 00:57:39', 'Rahman', 400),
-(32, 50, '2025-05-19 15:57:39', 'Rahman', 10);
+(39, 79, '2025-06-28 16:04:44', 'warud', 12);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login`
+-- Struktur dari tabel `login`
 --
 
 CREATE TABLE `login` (
   `iduser` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(20) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `login`
+-- Dumping data untuk tabel `login`
 --
 
-INSERT INTO `login` (`iduser`, `email`, `password`) VALUES
-(1, 'ruberman@gmail.com', 'admin123'),
-(3, 'admin1@gmail.com', 'admin234'),
-(4, 'archivejunior@gmail.com', 'saga123');
+INSERT INTO `login` (`iduser`, `email`, `password`, `role`) VALUES
+(11, 'mpii@gmail.com', '$2y$10$9zHj/n23/NyqrAVXu7adiu0r8VixN9thWYw.QpJAYAXrr0B3OxWWm', 'admin'),
+(12, 'warud@gmail.com', '$2y$10$/A1l7zbDG73nu2WyAGm0s.oK5Af2dM462mlMTmQH3yjVTy.Dj29MG', 'user');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `masuk`
+-- Struktur dari tabel `masuk`
 --
 
 CREATE TABLE `masuk` (
@@ -86,21 +78,16 @@ CREATE TABLE `masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `masuk`
+-- Dumping data untuk tabel `masuk`
 --
 
 INSERT INTO `masuk` (`idmasuk`, `idbarang`, `tanggal`, `keterangan`, `qty`) VALUES
-(21, 36, '2025-05-11 02:32:32', 'chive', 12000),
-(22, 37, '2025-05-11 02:59:32', 'chive', 400),
-(23, 38, '2025-05-11 03:00:05', 'chive', 6),
-(25, 41, '2025-05-11 03:23:07', 'chive', 300),
-(26, 43, '2025-05-14 00:33:48', 'chive', 100),
-(27, 50, '2025-05-19 13:25:04', 'chive', 25);
+(43, 79, '2025-06-28 16:04:33', 'Stok Awal', 123);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stock`
+-- Struktur dari tabel `stock`
 --
 
 CREATE TABLE `stock` (
@@ -112,71 +99,67 @@ CREATE TABLE `stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `stock`
+-- Dumping data untuk tabel `stock`
 --
 
 INSERT INTO `stock` (`idbarang`, `namabarang`, `deskripsi`, `stock`, `image`) VALUES
-(41, 'Samsung', 'Handphone', 1290, ''),
-(42, 'Kulkas', 'Elektronik', 0, ''),
-(43, 'Iphone', 'Handphone', 100, ''),
-(44, 'Ipad', 'Tablet', 0, ''),
-(50, 'Xiaomi', 'Handphone', 265, 'd5188ef6db2ae117965828d427f51dc3.png');
+(79, 'xioami', 'sa', 111, '355de62d1cf7674e9f0d5cd40cb86ab4.png');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `keluar`
+-- Indeks untuk tabel `keluar`
 --
 ALTER TABLE `keluar`
   ADD PRIMARY KEY (`idkeluar`);
 
 --
--- Indexes for table `login`
+-- Indeks untuk tabel `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`iduser`);
 
 --
--- Indexes for table `masuk`
+-- Indeks untuk tabel `masuk`
 --
 ALTER TABLE `masuk`
   ADD PRIMARY KEY (`idmasuk`);
 
 --
--- Indexes for table `stock`
+-- Indeks untuk tabel `stock`
 --
 ALTER TABLE `stock`
   ADD PRIMARY KEY (`idbarang`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `keluar`
+-- AUTO_INCREMENT untuk tabel `keluar`
 --
 ALTER TABLE `keluar`
-  MODIFY `idkeluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `idkeluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `login`
+-- AUTO_INCREMENT untuk tabel `login`
 --
 ALTER TABLE `login`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `masuk`
+-- AUTO_INCREMENT untuk tabel `masuk`
 --
 ALTER TABLE `masuk`
-  MODIFY `idmasuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idmasuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT for table `stock`
+-- AUTO_INCREMENT untuk tabel `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
