@@ -4,65 +4,60 @@ session_start();
 // 1. KONEKSI DATABASE
 $conn = mysqli_connect("localhost","root","","inventory_ruberman");
 
-// 2. FUNGSI UTAMA UNTUK SINKRONISASI STOK
+
+// 2. FUNGSI UTAMA UNTUK SINKRONISASI STOK (SUMBER KEBENARAN TUNGGAL)
 function recalculateStock($idbarang, $conn) {
+    // Hitung total kuantitas dari semua transaksi masuk
     $query_masuk = mysqli_query($conn, "SELECT SUM(qty) as total FROM masuk WHERE idbarang = '$idbarang'");
     $total_masuk = (int)mysqli_fetch_assoc($query_masuk)['total'];
 
+    // Hitung total kuantitas dari semua transaksi keluar
     $query_keluar = mysqli_query($conn, "SELECT SUM(qty) as total FROM keluar WHERE idbarang = '$idbarang'");
     $total_keluar = (int)mysqli_fetch_assoc($query_keluar)['total'];
 
+    // Stok akhir adalah total masuk dikurangi total keluar
     $stok_sebenarnya = $total_masuk - $total_keluar;
 
+    // Perbarui tabel stock dengan angka yang pasti benar
     mysqli_query($conn, "UPDATE stock SET stock = '$stok_sebenarnya' WHERE idbarang = '$idbarang'");
 }
 
-// CEGAH SUBMIT GANDA: TOKEN SATU KALI PAKAI (opsional)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_SESSION['last_submit']) && $_SESSION['last_submit'] == $_POST) {
-        exit(); // blokir jika sama persis
-    }
-    $_SESSION['last_submit'] = $_POST;
-}
 
 // 3. PROSES FORM UNTUK MANAJEMEN BARANG
+
+// Menambah barang baru (dengan pencatatan stok awal yang benar)
 if(isset($_POST['addnewbarang'])) {
-    $namabarang = mysqli_real_escape_string($conn, $_POST['namabarang']);
-    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
+    $namabarang = $_POST['namabarang'];
+    $deskripsi = $_POST['deskripsi'];
     $stock_awal = (int)$_POST['stock'];
     $image = '';
 
-    // CEK DUPLIKASI NAMA + DESKRIPSI
-    $cek = mysqli_query($conn, "SELECT * FROM stock WHERE namabarang = '$namabarang' AND deskripsi = '$deskripsi'");
-    if(mysqli_num_rows($cek) > 0) {
-        echo '<script>alert("Barang sudah ada!"); window.location.href="index.php";</script>';
-        exit();
-    }
-
+    // Proses upload gambar jika ada
     if(isset($_FILES['file']) && $_FILES['file']['error'] == 0){
         $allowed_extension = array('png','jpg','jpeg');
-        $nama_file = $_FILES['file']['name'];
-        $dot = explode('.', $nama_file);
+        $nama = $_FILES['file']['name'];
+        $dot = explode('.', $nama);
         $ekstensi = strtolower(end($dot));
         if(in_array($ekstensi, $allowed_extension)) {
-            $image = md5(uniqid($nama_file,true).time()).'.'.$ekstensi;
+            $image = md5(uniqid($nama,true).time()).'.'.$ekstensi;
             move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/'.$image);
         }
     }
-
+    
+    // Masukkan barang baru ke tabel stock dengan stok awal 0
     $addtostock = mysqli_query($conn, "INSERT INTO stock (namabarang, deskripsi, stock, image) VALUES ('$namabarang', '$deskripsi', '0', '$image')");
     
+    // Jika berhasil, dan jika ada input stok awal, catat sebagai transaksi "Barang Masuk"
     if($addtostock && $stock_awal > 0){
         $idbarang_baru = mysqli_insert_id($conn);
         mysqli_query($conn, "INSERT INTO masuk (idbarang, keterangan, qty) VALUES ('$idbarang_baru', 'Stok Awal', '$stock_awal')");
         recalculateStock($idbarang_baru, $conn);
     }
-    header('Location: index.php');
-    exit();
+    header('location:index.php');
 }
 
 
-// Menambah barang masuk (selain stok awal)
+// Menambah barang masuk
 if(isset($_POST['barangmasuk'])) {
     $idbarang = (int)$_POST['barangnya'];
     $keterangan = $_POST['penerima'];
@@ -168,8 +163,8 @@ if(isset($_POST['hapusbarangkeluar'])) {
 // Update info barang (nama, deskripsi, gambar)
 if(isset($_POST['updatebarang'])) {
     $idb = (int)$_POST['idb'];
-    $namabarang = mysqli_real_escape_string($conn, $_POST['namabarang']);
-    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
+    $namabarang = $_POST['namabarang'];
+    $deskripsi = $_POST['deskripsi'];
 
     if(isset($_FILES['file']) && $_FILES['file']['size'] > 0) {
         $allowed_extension = array('png','jpg','jpeg');
