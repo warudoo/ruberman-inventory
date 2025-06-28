@@ -66,11 +66,12 @@ require 'admin_cek.php';
                                 Barang Keluar
                             </a> 
 
-                              <a class="nav-link" href="admin.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <?php if($_SESSION['role'] == 'admin') { ?>
+                            <a class="nav-link" href="admin.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                                 Manajemen Admin
-                            </a> 
-                            
+                            </a>
+                                <?php } ?>
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-door-open"></i></div>
                                 Logout
