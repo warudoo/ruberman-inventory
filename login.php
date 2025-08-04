@@ -45,7 +45,7 @@ if(isset($_SESSION['log'])) {
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Login - Inventory</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="assets/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary" style="background: url('assets/img/rubermang.png') no-repeat center center fixed; background-size: cover;">
