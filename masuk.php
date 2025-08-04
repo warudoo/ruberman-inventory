@@ -19,7 +19,7 @@ require 'includes/cek.php';
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-         <style>
+        <style>
             .zoomable {
                 width: 100px;
             }
@@ -35,7 +35,7 @@ require 'includes/cek.php';
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-image: url('assets/img/blueback.jpg'); background-size: cover; background-repeat: no-repeat;">
             <!-- Navbar Brand-->
-             <a class="navbar-brand ps-3" href="index.php">
+            <a class="navbar-brand ps-3" href="index.php">
                 <img src="assets/img/ruberman.png" alt="ruberman" height="40" class="d-inline-block align-top">
             </a>
             <!-- Sidebar Toggle-->
@@ -84,7 +84,7 @@ require 'includes/cek.php';
                             </a>
                             <?php } ?>
                             
-                             <a class="nav-link" href="logout.php">
+                            <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-door-open"></i></div>
                                 Logout
                             </a>     
@@ -157,13 +157,13 @@ require 'includes/cek.php';
                             }
                         </style>
                             <div class="card-header">
-                              <!-- Button to Open the Modal -->
+                            <!-- Button to Open the Modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             <i class="fas fa-box-open"></i> Tambah Barang Masuk
                         </button>
                         </div>
                         <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table table-bordered" id="datatablesSimple" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Tanggal</th>

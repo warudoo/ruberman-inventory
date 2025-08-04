@@ -161,7 +161,7 @@ require 'includes/cek.php';
                         </button>
                         </div>
                         <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table table-bordered" id="datatablesSimple" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Tanggal</th>
