@@ -14,11 +14,6 @@ $currentPage = 'index'; // Variabel untuk menandai halaman aktif
         <link href="assets/css/styles.css" rel="stylesheet" /> 
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-        
         <style>
             .zoomable { width: 100px; }
             .zoomable:hover { transform: scale(2.5); transition: transform 0.3s ease; }
@@ -44,7 +39,7 @@ $currentPage = 'index'; // Variabel untuk menandai halaman aktif
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                                     <i class="fas fa-plus"></i> Tambah Barang
                                 </button>
                                 <a href="export.php" class="btn btn-success">
@@ -57,9 +52,9 @@ $currentPage = 'index'; // Variabel untuk menandai halaman aktif
                                 while($fetch=mysqli_fetch_array($ambildatastock)){
                                     $barang = $fetch['namabarang'];
                                 ?>
-                                    <div class="alert alert-danger alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert">&times;</button>   
+                                    <div class="alert alert-danger alert-dismissible fade show">
                                         <strong>Perhatian!</strong> Stok barang <?=$barang;?> telah habis.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 <?php } ?>
 
@@ -87,11 +82,7 @@ $currentPage = 'index'; // Variabel untuk menandai halaman aktif
                                         $idb = $data['idbarang'];
                                         $gambar = $data['image'];
                                         
-                                        if($gambar == null || $gambar == ''){ 
-                                            $img = 'Tidak Ada Gambar';
-                                        } else {
-                                            $img = '<img src="uploads/'.$gambar.'" class="zoomable">';
-                                        }
+                                        $img = ($gambar == null || $gambar == '') ? 'Tidak Ada Gambar' : '<img src="uploads/'.$gambar.'" class="zoomable">';
                                     ?>
                                     <tr>
                                         <td><?=$i++;?></td>
@@ -101,47 +92,48 @@ $currentPage = 'index'; // Variabel untuk menandai halaman aktif
                                         <td><?=$stock;?></td>
                                         <td><?=$lokasi;?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit<?=$idb;?>">Edit</button>
-                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?=$idb;?>">Delete</button>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?=$idb;?>">Edit</button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?=$idb;?>">Delete</button>
                                         </td>
                                     </tr>
+                                    
                                     <div class="modal fade" id="edit<?=$idb;?>">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Edit Barang</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <form method="post" enctype="multipart/form-data">
                                                     <div class="modal-body">
-                                                        <input type="text" name="namabarang" value="<?=$namabarang;?>" class="form-control" required>
-                                                        <br>
-                                                        <input type="text" name="deskripsi" value="<?=$deskripsi;?>" class="form-control" required>
-                                                        <br>
-                                                        <input type="text" name="lokasi" value="<?=$lokasi;?>" placeholder="Lokasi Barang" class="form-control" required>
-                                                        <br>
-                                                        <input type="file" name="file" class="form-control">
-                                                        <br>
+                                                        <input type="text" name="namabarang" value="<?=$namabarang;?>" class="form-control mb-3" required>
+                                                        <input type="text" name="deskripsi" value="<?=$deskripsi;?>" class="form-control mb-3" required>
+                                                        <input type="text" name="lokasi" value="<?=$lokasi;?>" placeholder="Lokasi Barang" class="form-control mb-3" required>
+                                                        <input type="file" name="file" class="form-control mb-3">
                                                         <input type="hidden" name="idb" value="<?=$idb;?>">
-                                                        <button type="submit" class="btn btn-primary" name="updatebarang">Submit</button> 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary" name="updatebarang">Submit</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="modal fade" id="delete<?=$idb;?>">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Hapus Barang</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <form method="post">
                                                     <div class="modal-body">
                                                         Apakah Anda yakin ingin menghapus <?=$namabarang;?>?
                                                         <input type="hidden" name="idb" value="<?=$idb;?>">
-                                                        <br><br>
-                                                        <button type="submit" class="btn btn-danger" name="hapusbarang">Hapus</button> 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger" name="hapusbarang">Hapus</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -169,27 +161,25 @@ $currentPage = 'index'; // Variabel untuk menandai halaman aktif
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Tambah Barang Baru</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form method="post" enctype="multipart/form-data">
                         <div class="modal-body">
-                            <input type="text" name="namabarang" placeholder="Nama Barang" class="form-control" required>
-                            <br>
-                            <input type="text" name="deskripsi" placeholder="Deskripsi Barang" class="form-control" required>
-                            <br>
-                            <input type="number" name="stock" placeholder="Stok Awal" class="form-control" required min="0">
-                            <br>
-                            <input type="text" name="lokasi" placeholder="Lokasi Barang (e.g. Rak A1)" class="form-control" required>
-                            <br>
-                            <input type="file" name="file" class="form-control">
-                            <br>
-                            <button type="submit" class="btn btn-primary" name="addnewbarang">Submit</button> 
+                            <input type="text" name="namabarang" placeholder="Nama Barang" class="form-control mb-3" required>
+                            <input type="text" name="deskripsi" placeholder="Deskripsi Barang" class="form-control mb-3" required>
+                            <input type="number" name="stock" placeholder="Stok Awal" class="form-control mb-3" required min="0">
+                            <input type="text" name="lokasi" placeholder="Lokasi Barang (e.g. Rak A1)" class="form-control mb-3" required>
+                            <input type="file" name="file" class="form-control mb-3">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" name="addnewbarang">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>

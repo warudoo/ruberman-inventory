@@ -9,14 +9,10 @@ $currentPage = 'peminjaman'; // Variabel untuk menandai halaman aktif
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Peminjaman Barang</title>
-    <link href="assets/css/styles.css" rel="stylesheet" />
+    <title>Peminjaman Barang - Ruberman</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-image: url('assets/img/blueback.jpg');">
@@ -26,16 +22,17 @@ $currentPage = 'peminjaman'; // Variabel untuk menandai halaman aktif
     <div id="layoutSidenav">
         
         <?php require 'includes/sidebar.php'; ?>
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Peminjaman Barang</h1>
                     <div class="card mb-4">
                         <div class="card-header">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                                 <i class="fas fa-plus"></i> Tambah Peminjaman
                             </button>
-                             <a href="export_peminjaman.php" class="btn btn-success">
+                            <a href="export_peminjaman.php" class="btn btn-success">
                                 <i class="fas fa-file-excel"></i> Export Data Peminjaman
                             </a>
                         </div>
@@ -70,25 +67,26 @@ $currentPage = 'peminjaman'; // Variabel untuk menandai halaman aktif
                                     <td><?=$peminjam;?></td>
                                     <td>
                                         <?php if($status == 'Dipinjam'): ?>
-                                            <span class="badge badge-warning">Dipinjam</span>
+                                            <span class="badge bg-warning text-dark">Dipinjam</span>
                                         <?php else: ?>
-                                            <span class="badge badge-success">Kembali</span>
+                                            <span class="badge bg-success">Kembali</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
                                     <?php if($status == 'Dipinjam'): ?>
-                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#kembali<?=$idp;?>">
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#kembali<?=$idp;?>">
                                             Selesaikan
                                         </button>
                                     <?php endif; ?>
                                     </td>
                                 </tr>
+                                
                                 <div class="modal fade" id="kembali<?=$idp;?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Selesaikan Peminjaman</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <form method="post">
                                                 <div class="modal-body">
@@ -111,6 +109,13 @@ $currentPage = 'peminjaman'; // Variabel untuk menandai halaman aktif
                     </div>
                 </div>
             </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Ruberman Inventory 2025</div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     
@@ -119,11 +124,11 @@ $currentPage = 'peminjaman'; // Variabel untuk menandai halaman aktif
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Peminjaman</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="post">
                     <div class="modal-body">
-                        <select name="barangnya" class="form-control">
+                        <select name="barangnya" class="form-control mb-3">
                             <?php
                             $ambilsemuadata = mysqli_query($conn, "SELECT * FROM stock WHERE stock > 0");
                             while($fetcharray = mysqli_fetch_array($ambilsemuadata)){
@@ -134,11 +139,10 @@ $currentPage = 'peminjaman'; // Variabel untuk menandai halaman aktif
                             <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?> (Stok: <?=$stocknya;?>)</option>
                             <?php } ?>
                         </select>
-                        <br>
-                        <input type="number" name="qty" placeholder="Jumlah" class="form-control" required min="1">
-                        <br>
-                        <input type="text" name="peminjam" placeholder="Nama Peminjam" class="form-control" required>
-                        <br>
+                        <input type="number" name="qty" placeholder="Jumlah" class="form-control mb-3" required min="1">
+                        <input type="text" name="peminjam" placeholder="Nama Peminjam" class="form-control mb-3" required>
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="pinjambarang">Pinjam</button>
                     </div>
                 </form>

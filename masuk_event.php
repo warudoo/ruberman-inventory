@@ -9,22 +9,19 @@ $currentPage = 'event'; // Menandai menu Event sebagai halaman aktif
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Tambah Pemasukan per Event</title>
+    <title>Tambah Event Barang Keluar</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .item-row {
             display: flex;
             align-items: center;
-            gap: 10px; /* Memberi jarak antar elemen form */
+            gap: 10px;
             margin-bottom: 10px;
         }
-        .item-row select { flex: 3; } /* Kolom select barang lebih besar */
-        .item-row input { flex: 1; }  /* Kolom qty lebih kecil */
+        .item-row select { flex: 3; }
+        .item-row input { flex: 1; }
     </style>
 </head>
 <body class="sb-nav-fixed">
@@ -37,7 +34,7 @@ $currentPage = 'event'; // Menandai menu Event sebagai halaman aktif
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Tambah Barang yang digunakan </h1>
+                    <h1 class="mt-4">Tambah Event Barang Keluar</h1>
                     <div class="card my-4">
                         <div class="card-header">
                             <a href="event.php" class="btn btn-secondary">
@@ -46,12 +43,12 @@ $currentPage = 'event'; // Menandai menu Event sebagai halaman aktif
                         </div>
                         <div class="card-body">
                             <form method="post">
-                                <div class="form-group">
-                                    <label for="nama_event">Nama Event/Acara</label>
+                                <div class="mb-3">
+                                    <label for="nama_event" class="form-label">Nama Event/Acara</label>
                                     <input type="text" name="nama_event" id="nama_event" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="penanggung_jawab">Penanggung Jawab</label>
+                                <div class="mb-3">
+                                    <label for="penanggung_jawab" class="form-label">Penanggung Jawab</label>
                                     <input type="text" name="penanggung_jawab" id="penanggung_jawab" class="form-control" required>
                                 </div>
                                 <hr>
@@ -80,10 +77,10 @@ $currentPage = 'event'; // Menandai menu Event sebagai halaman aktif
 
     <template id="item-row-template">
         <div class="item-row">
-            <select name="barangnya[]" class="form-control" required>
-                <option value="">Pilih Barang...</option>
+            <select name="barangnya[]" class="form-select" required>
+                <option value="" selected disabled>Pilih Barang...</option>
                 <?php
-                $ambilsemuadata = mysqli_query($conn, "SELECT * FROM stock ORDER BY namabarang ASC");
+                $ambilsemuadata = mysqli_query($conn, "SELECT * FROM stock WHERE stock > 0 ORDER BY namabarang ASC");
                 while($fetcharray = mysqli_fetch_array($ambilsemuadata)){
                     $idbarangnya = $fetcharray['idbarang'];
                     $namabarangnya = $fetcharray['namabarang'];
@@ -105,9 +102,12 @@ $currentPage = 'event'; // Menandai menu Event sebagai halaman aktif
         const clone = template.content.cloneNode(true);
         document.getElementById('item-container').appendChild(clone);
     }
-    // Tambahkan satu baris saat halaman dimuat
     window.onload = addItemRow;
     </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
 </body>
 </html>

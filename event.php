@@ -10,13 +10,9 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Daftar Event - Ruberman Inventory</title>
-    <link href="assets/css/styles.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-image: url('assets/img/blueback.jpg');">
@@ -28,7 +24,7 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Kelola Event Pemasukan Barang</h1>
+                    <h1 class="mt-4">Kelola Event Barang Keluar</h1>
                     <div class="card my-4">
                         <div class="card-header">
                             <a href="masuk_event.php" class="btn btn-primary">
@@ -62,9 +58,9 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif
                                     <td><?=$data['penanggung_jawab'];?></td>
                                     <td>
                                         <?php if($data['belum_kembali'] == 0): ?>
-                                            <span class="badge badge-success">Selesai</span>
+                                            <span class="badge bg-success">Selesai</span>
                                         <?php else: ?>
-                                            <span class="badge badge-warning">Berlangsung</span>
+                                            <span class="badge bg-warning text-dark">Berlangsung</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
@@ -74,25 +70,28 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif
                                         <a href="export_event.php?id=<?=$idevent;?>" class="btn btn-success btn-sm" target="_blank">
                                             <i class="fas fa-file-excel"></i> Export
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?=$idevent;?>">
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?=$idevent;?>">
                                             <i class="fas fa-trash"></i> Hapus
                                         </button>
                                     </td>
                                 </tr>
+                                
                                 <div class="modal fade" id="delete<?=$idevent;?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Hapus Event?</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
                                             <form method="post">
                                                 <div class="modal-body">
-                                                    Apakah Anda yakin ingin menghapus event <strong><?=$data['nama_event'];?></strong>? <br><br>
-                                                    <strong class="text-danger">Peringatan:</strong> Semua data barang keluar dan riwayat pengembalian terkait event ini akan dihapus secara permanen. Stok barang tidak akan dikembalikan secara otomatis.
+                                                    Apakah Anda yakin ingin menghapus event <strong><?=$data['nama_event'];?></strong>?
+                                                    <br><br>
+                                                    <strong class="text-danger">Peringatan:</strong> Stok barang yang belum kembali akan otomatis dikembalikan ke sistem untuk menyeimbangkan data. Riwayat event akan dihapus permanen.
                                                     <input type="hidden" name="id_event_to_delete" value="<?=$idevent;?>">
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                     <button type="submit" class="btn btn-danger" name="hapusevent">Ya, Hapus Event</button>
                                                 </div>
                                             </form>
@@ -115,6 +114,8 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif
             </footer>
         </div>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>

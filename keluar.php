@@ -16,19 +16,9 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    
     <style>
         .zoomable { width: 100px; }
         .zoomable:hover { transform: scale(2.5); transition: transform 0.3s ease; }
-        .keterangan-full {
-            white-space: pre-wrap;
-            word-break: break-word;
-            min-width: 200px;
-        }
     </style>
 </head>
 <body class="sb-nav-fixed">
@@ -56,7 +46,7 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
                     </div>
                     <div class="card mb-4">
                         <div class="card-header">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">
                                 <i class="fas fa-dolly"></i> Tambah Barang Keluar
                             </button>
                         </div>
@@ -81,14 +71,10 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
                                         $tanggal = $data['tanggal'];
                                         $namabarang = $data['namabarang'];
                                         $qty = $data['qty'];
-                                        $keterangan = $data['penerima']; // Data diambil dari kolom 'penerima'
+                                        $keterangan = $data['penerima'];
                                         $gambar = $data['image'];
 
-                                        if($gambar == null){
-                                            $img = 'Tidak Ada Gambar';
-                                        } else {
-                                            $img = '<img src="uploads/'.$gambar.'" class="zoomable">';
-                                        }
+                                        $img = ($gambar == null) ? 'Tidak Ada Gambar' : '<img src="uploads/'.$gambar.'" class="zoomable">';
                                 ?>
                                     <tr>
                                         <td><?=$tanggal;?></td>
@@ -97,8 +83,8 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
                                         <td><?=$qty;?></td>
                                         <td class="keterangan-full"><?=$keterangan;?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit<?=$idk;?>">Edit</button>
-                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?=$idk;?>">Delete</button>
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit<?=$idk;?>">Edit</button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete<?=$idk;?>">Delete</button>
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="edit<?=$idk;?>">
@@ -106,16 +92,16 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Edit Barang Keluar</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <form method="post">
                                                     <div class="modal-body">
-                                                        <input type="text" name="keterangan" value="<?=$keterangan;?>" class="form-control" required>
-                                                        <br>
-                                                        <input type="number" name="qty" value="<?=$qty;?>" class="form-control" required>
-                                                        <br>
+                                                        <input type="text" name="penerima" value="<?=$keterangan;?>" class="form-control mb-3" required>
+                                                        <input type="number" name="qty" value="<?=$qty;?>" class="form-control mb-3" required>
                                                         <input type="hidden" name="idb" value="<?=$idb;?>">
                                                         <input type="hidden" name="idk" value="<?=$idk;?>">
+                                                    </div>
+                                                    <div class="modal-footer">
                                                         <button type="submit" class="btn btn-primary" name="updatebarangkeluar">Submit</button>
                                                     </div>
                                                 </form>
@@ -127,14 +113,15 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Hapus Barang?</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <form method="post">
                                                     <div class="modal-body">
                                                         Apakah anda yakin ingin menghapus <?=$namabarang;?>?
                                                         <input type="hidden" name="idb" value="<?=$idb;?>">
                                                         <input type="hidden" name="idk" value="<?=$idk;?>">
-                                                        <br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
                                                         <button type="submit" class="btn btn-danger" name="hapusbarangkeluar">Hapus</button> 
                                                     </div>
                                                 </form>
@@ -163,25 +150,22 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Barang Keluar</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="post">
                     <div class="modal-body">
-                        <select name="barangnya" class="form-control">
+                        <select name="barangnya" class="form-control mb-3">
                         <?php
                             $ambilsemuadatanya = mysqli_query($conn, "SELECT * FROM stock");
                             while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
-                                $namabarangnya = $fetcharray['namabarang'];
-                                $idbarangnya = $fetcharray['idbarang'];
                         ?>
-                            <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option>
+                            <option value="<?=$fetcharray['idbarang'];?>"><?=$fetcharray['namabarang'];?></option>
                         <?php } ?>
                         </select>
-                        <br>
-                        <input type="number" name="qty" placeholder="Quantity" class="form-control" required>
-                        <br>
-                        <input type="text" name="keterangan" placeholder="Keterangan" class="form-control" required>
-                        <br>
+                        <input type="number" name="qty" placeholder="Quantity" class="form-control mb-3" required>
+                        <input type="text" name="keterangan" placeholder="Keterangan" class="form-control mb-3" required>
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="addbarangkeluar">Submit</button>
                     </div>
                 </form>
@@ -189,6 +173,7 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
