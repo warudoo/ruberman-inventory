@@ -123,7 +123,7 @@ $currentPage = 'keluar'; // Variabel untuk menandai halaman aktif
                                         </div>
                                     </div>
                                     <div class="modal fade" id="delete<?=$idk;?>">
-                                         <div class="modal-dialog">
+                                        <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Hapus Barang?</h4>

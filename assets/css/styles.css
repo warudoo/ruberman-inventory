@@ -11621,132 +11621,6 @@ body {
 /* KODE KUSTOM UNTUK APLIKASI INVENTARIS RUBERMAN                      */
 /* =================================================================== */
 
-Anda benar sekali untuk terus menekan masalah ini, dan saya mohon maaf yang sebesar-besarnya karena solusi-solusi sebelumnya belum berhasil. Ini menandakan ada aturan CSS lain yang lebih kuat dari library simple-datatables yang sedang menimpa perbaikan kita.
-
-Ini bukan masalah database Anda. Ini murni masalah tampilan (CSS), dan kita akan selesaikan sekarang dengan cara yang paling "memaksa" agar browser mengikuti keinginan kita.
-
-Saya telah menganalisis ulang file styles.css Anda dan struktur HTML dari masuk.php. Saya akan memberikan satu blok kode CSS final. Aturan ini jauh lebih spesifik dan kuat dari yang sebelumnya dan seharusnya bisa mengatasi masalah ini secara permanen.
-
-Langkah Final: Perbarui assets/css/styles.css
-Silakan ganti seluruh isi file assets/css/styles.css Anda dengan kode lengkap di bawah ini. Cukup timpa semuanya untuk memastikan tidak ada sisa kode lama yang mengganggu.
-
-File: assets/css/styles.css (Kode Final yang Paling Benar)
-CSS
-
-@charset "UTF-8";
-/*!
-* Start Bootstrap - SB Admin v7.0.7 (https://startbootstrap.com/template/sb-admin)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
-:root {
-  --bs-blue: #0d6efd;
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
-  --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #ffc107;
-  --bs-green: #198754;
-  --bs-teal: #20c997;
-  --bs-cyan: #0dcaf0;
-  --bs-black: #000;
-  --bs-white: #fff;
-  --bs-gray: #6c757d;
-  --bs-gray-dark: #343a40;
-  --bs-gray-100: #f8f9fa;
-  --bs-gray-200: #e9ecef;
-  --bs-gray-300: #dee2e6;
-  --bs-gray-400: #ced4da;
-  --bs-gray-500: #adb5bd;
-  --bs-gray-600: #6c757d;
-  --bs-gray-700: #495057;
-  --bs-gray-800: #343a40;
-  --bs-gray-900: #212529;
-  --bs-primary: #0d6efd;
-  --bs-secondary: #6c757d;
-  --bs-success: #198754;
-  --bs-info: #0dcaf0;
-  --bs-warning: #ffc107;
-  --bs-danger: #dc3545;
-  --bs-light: #f8f9fa;
-  --bs-dark: #212529;
-  --bs-primary-rgb: 13, 110, 253;
-  --bs-secondary-rgb: 108, 117, 125;
-  --bs-success-rgb: 25, 135, 84;
-  --bs-info-rgb: 13, 202, 240;
-  --bs-warning-rgb: 255, 193, 7;
-  --bs-danger-rgb: 220, 53, 69;
-  --bs-light-rgb: 248, 249, 250;
-  --bs-dark-rgb: 33, 37, 41;
-  --bs-white-rgb: 255, 255, 255;
-  --bs-black-rgb: 0, 0, 0;
-  --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg-rgb: 255, 255, 255;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
-  --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
-  --bs-body-bg: #fff;
-  --bs-border-width: 1px;
-  --bs-border-style: solid;
-  --bs-border-color: #dee2e6;
-  --bs-border-color-translucent: rgba(0, 0, 0, 0.175);
-  --bs-border-radius: 0.375rem;
-  --bs-border-radius-sm: 0.25rem;
-  --bs-border-radius-lg: 0.5rem;
-  --bs-border-radius-xl: 1rem;
-  --bs-border-radius-2xl: 2rem;
-  --bs-border-radius-pill: 50rem;
-  --bs-link-color: #0d6efd;
-  --bs-link-hover-color: #0a58ca;
-  --bs-code-color: #d63384;
-  --bs-highlight-bg: #fff3cd;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    scroll-behavior: smooth;
-  }
-}
-
-body {
-  margin: 0;
-  font-family: var(--bs-body-font-family);
-  font-size: var(--bs-body-font-size);
-  font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
-  text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-/* ... (SEMUA KODE CSS ASLI DARI TEMPLATE ANDA DARI SINI SAMPAI AKHIR) ... */
-/* ... (PASTIKAN SEMUA KODE LAMA ANDA TETAP ADA) ... */
-
-
-/* =================================================================== */
-/* KODE KUSTOM UNTUK APLIKASI INVENTARIS RUBERMAN                      */
-/* =================================================================== */
-
 /* Header untuk Barang Masuk, Keluar, dan Admin */
 .custom-header-masuk, .custom-header-keluar, .custom-header-admin {
     position: relative;
@@ -11797,4 +11671,58 @@ body {
     white-space: normal !important; /* Memaksa teks untuk pindah baris */
     word-wrap: break-word;        /* Memaksa kata yang panjang untuk pecah */
     vertical-align: middle !important; /* Membuat teks rata tengah secara vertikal */
+}
+
+/* =================================================================== */
+/* CSS UNTUK TAMPILAN RESPONSIVE (MOBILE)                              */
+/* =================================================================== */
+
+@media (max-width: 768px) {
+    /* Mengecilkan judul utama di halaman agar tidak terlalu besar di HP */
+    .container-fluid h1.mt-4 {
+        font-size: 1.75rem;
+    }
+
+    /* Menyesuaikan header kustom agar lebih ringkas di mobile */
+    .custom-header-masuk, .custom-header-keluar, .custom-header-admin {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        text-align: left;
+    }
+
+    .header-shape, .header-shape-admin {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .header-icon, .header-icon-admin {
+        font-size: 1.8rem;
+    }
+
+    .header-title, .header-title-admin {
+        font-size: 1.5rem;
+    }
+
+    .header-subtitle, .header-subtitle-admin {
+        font-size: 0.9rem;
+    }
+
+    /* Membuat tombol di card-header memenuhi lebar layar agar mudah di-klik */
+    .card-header .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Memastikan tabel bisa di-scroll ke samping jika tidak muat */
+    .card-body {
+        overflow-x: auto;
+    }
+
+    /* Menyesuaikan ukuran font di dalam modal agar lebih nyaman dibaca */
+    .modal-body, .modal-title {
+        font-size: 0.95rem;
+    }
 }
