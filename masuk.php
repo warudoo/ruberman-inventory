@@ -3,31 +3,25 @@ require 'includes/function.php';
 require 'includes/cek.php';
 $currentPage = 'masuk'; // Variabel untuk menandai halaman aktif
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
     <title>Inventory Barang Masuk</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <style>
-        .zoomable {
-            width: 100px;
-        }
-        .zoomable:hover {
-            transform: scale(2.5);
-            transition: transform 0.3s ease;
-        }
+        .zoomable { width: 100px; }
+        .zoomable:hover { transform: scale(2.5); transition: transform 0.3s ease; }
     </style>
 </head>
 <body class="sb-nav-fixed">
@@ -38,8 +32,9 @@ $currentPage = 'masuk'; // Variabel untuk menandai halaman aktif
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     </nav>
     <div id="layoutSidenav">
-        
+
         <?php require 'includes/sidebar.php'; ?>
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -53,63 +48,12 @@ $currentPage = 'masuk'; // Variabel untuk menandai halaman aktif
                         </div>
                     </div>
                     <div class="card mb-4">
-                    <style>
-                        .custom-header-masuk {
-                            position: relative;
-                            background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
-                            border-radius: 1.5rem;
-                            padding: 1.5rem 2rem;
-                            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-                            margin-top: 2rem;
-                            margin-bottom: 2rem;
-                            z-index: 1;
-                        }
-                        .header-shape {
-                            width: 70px;
-                            height: 70px;
-                            background: #fff;
-                            border-radius: 50% 40% 60% 50% / 60% 50% 40% 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-                        }
-                        .header-icon {
-                            font-size: 2.5rem;
-                            color: #007bff;
-                        }
-                        .header-title {
-                            color: #fff;
-                            font-weight: 700;
-                            font-size: 2.2rem;
-                            letter-spacing: 1px;
-                        }
-                        .header-subtitle {
-                            color: #e3f2fd;
-                            font-size: 1rem;
-                            opacity: 0.85;
-                        }
-                        @media (max-width: 576px) {
-                            .custom-header-masuk {
-                                flex-direction: column;
-                                align-items: flex-start;
-                                padding: 1rem;
-                            }
-                            .header-shape {
-                                width: 50px;
-                                height: 50px;
-                            }
-                            .header-title {
-                                font-size: 1.3rem;
-                            }
-                        }
-                    </style>
                         <div class="card-header">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                        <i class="fas fa-box-open"></i> Tambah Barang Masuk
-                    </button>
-                    </div>
-                    <div class="card-body">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                <i class="fas fa-box-open"></i> Tambah Barang Masuk
+                            </button>
+                        </div>
+                        <div class="card-body">
                             <table class="table table-bordered" id="datatablesSimple" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -131,14 +75,10 @@ $currentPage = 'masuk'; // Variabel untuk menandai halaman aktif
                                         $namabarang = $data['namabarang'];
                                         $qty = $data['qty'];
                                         $keterangan = $data['keterangan'];
-
-                                         // cek ada gambar atay tidak
-                                        $gambar = $data['image']; // ambil gambar
+                                        $gambar = $data['image'];
                                         if($gambar == null){ 
-                                            // jika tidak ada gambar
                                             $img = '-';
                                         } else {
-                                            // jika ada gambar
                                             $img = '<img src="uploads/'.$gambar.'" class="zoomable">';
                                         }
                                 ?>
@@ -147,17 +87,53 @@ $currentPage = 'masuk'; // Variabel untuk menandai halaman aktif
                                         <td><?=$img;?></td>
                                         <td><?=$namabarang;?></td>
                                         <td><?=$qty;?></td>
-                                        <td><?=$keterangan;?></td>
+                                        <td class="keterangan-full"><?=$keterangan;?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?=$idm;?>">
-                                            Edit
-                                            </button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete<?=$idm;?>">
-                                            Delete
-                                        </button>
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit<?=$idm;?>">Edit</button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?=$idm;?>">Delete</button>
                                         </td>
                                     </tr>
-                                     <?php }; ?>
+                                    <div class="modal fade" id="edit<?=$idm;?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Edit Barang</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <form method="post">
+                                                    <div class="modal-body">
+                                                        <input type="text" name="keterangan" value="<?=$keterangan;?>" class="form-control" required>
+                                                        <br>
+                                                        <input type="number" name="qty" value="<?=$qty;?>" class="form-control" required>
+                                                        <br>
+                                                        <input type="hidden" name="idb" value="<?=$idb;?>">
+                                                        <input type="hidden" name="idm" value="<?=$idm;?>">
+                                                        <button type="submit" class="btn btn-primary" name="updatebarangmasuk">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="delete<?=$idm;?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Hapus Barang?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <form method="post">
+                                                    <div class="modal-body">
+                                                        Apakah anda yakin ingin menghapus <?=$namabarang;?>?
+                                                        <input type="hidden" name="idb" value="<?=$idb;?>">
+                                                        <input type="hidden" name="idm" value="<?=$idm;?>">
+                                                        <br><br>
+                                                        <button type="submit" class="btn btn-danger" name="hapusbarangmasuk">Hapus</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php }; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -168,22 +144,45 @@ $currentPage = 'masuk'; // Variabel untuk menandai halaman aktif
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; PT Ruhama Berkah 2025</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Barang Masuk</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        <select name="barangnya" class="form-control">
+                        <?php
+                            $ambilsemuadatanya = mysqli_query($conn, "SELECT * FROM stock");
+                            while($fetcharray = mysqli_fetch_array($ambilsemuadatanya)){
+                                $namabarangnya = $fetcharray['namabarang'];
+                                $idbarangnya = $fetcharray['idbarang'];
+                        ?>
+                            <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?></option>
+                        <?php } ?>
+                        </select>
+                        <br>
+                        <input type="number" name="qty" placeholder="Quantity" class="form-control" required>
+                        <br>
+                        <input type="text" name="penerima" placeholder="Keterangan" class="form-control" required>
+                        <br>
+                        <button type="submit" class="btn btn-primary" name="barangmasuk">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
 </body>
-    </html>
+</html>

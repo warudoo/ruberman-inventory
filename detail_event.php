@@ -51,7 +51,7 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif di sidebar
                                         <th>Qty Keluar</th>
                                         <th>Qty Kembali</th>
                                         <th>Status</th>
-                                        <th>Keterangan</th>
+                                        <th class="keterangan-full">Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -104,7 +104,7 @@ $currentPage = 'event'; // Variabel untuk menandai halaman aktif di sidebar
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Keterangan:</label>
-                                                    <textarea name="keterangan_update" class="form-control" rows="3"><?=$d['keterangan'];?></textarea>
+                                                    <textarea name="keterangan" class="form-control" rows="3" placeholder="Contoh: 1 unit hilang, 2 unit rusak ringan" required></textarea>
                                                 </div>
                                                 <input type="hidden" name="id_detail" value="<?=$d['id_detail'];?>">
                                                 <input type="hidden" name="idbarang" value="<?=$d['idbarang'];?>">

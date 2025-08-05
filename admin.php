@@ -3,7 +3,6 @@ require 'includes/function.php';
 require 'includes/admin_cek.php'; 
 $currentPage = 'admin'; // Variabel untuk menandai halaman aktif
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +28,9 @@ $currentPage = 'admin'; // Variabel untuk menandai halaman aktif
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     </nav>
     <div id="layoutSidenav">
-
+        
         <?php require 'includes/sidebar.php'; ?>
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -127,7 +127,6 @@ $currentPage = 'admin'; // Variabel untuk menandai halaman aktif
                                                 </button>
                                             </td>
                                         </tr>
-                                        
                                         <div class="modal fade" id="delete<?=$iduser;?>">
                                             </div>
                                     <?php }; ?>
@@ -151,14 +150,38 @@ $currentPage = 'admin'; // Variabel untuk menandai halaman aktif
                 </footer>
             </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/chart-area-demo.js"></script>
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
-</body>
+
     <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Admin</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        <input type="email" name="email" placeholder="Email" class="form-control" required>
+                        <br>
+                        <input type="password" name="password" placeholder="Password" class="form-control" required>
+                        <br>
+                        <select name="role" class="form-control" required>
+                            <option value="" disabled selected>Pilih Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                        <br>
+                        <button type="submit" class="btn btn-primary" name="addadmin">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
+</body>
 </html>

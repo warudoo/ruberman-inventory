@@ -1,6 +1,7 @@
 <?php
 require 'includes/function.php';
 require 'includes/cek.php';
+$currentPage = 'event'; // Menandai menu Event sebagai halaman aktif
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,56 +13,37 @@ require 'includes/cek.php';
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .item-row {
             display: flex;
             align-items: center;
+            gap: 10px; /* Memberi jarak antar elemen form */
             margin-bottom: 10px;
         }
-        .item-row select, .item-row input {
-            margin-right: 10px;
-        }
+        .item-row select { flex: 3; } /* Kolom select barang lebih besar */
+        .item-row input { flex: 1; }  /* Kolom qty lebih kecil */
     </style>
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-image: url('assets/img/blueback.jpg');"></nav>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark" style="background-image: url('assets/img/blueback.jpg');">
+        <a class="navbar-brand ps-3" href="index.php"><img src="assets/img/ruberman.png" alt="ruberman" height="40"></a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    </nav>
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <a class="nav-link" href="index.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-box-open"></i></div> Stok Barang
-                        </a>
-                        <a class="nav-link" href="masuk.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-arrow-right"></i></div> Barang Masuk
-                        </a>
-                        <a class="nav-link" href="keluar.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-arrow-left"></i></div> Barang Keluar
-                        </a>
-                        <a class="nav-link" href="peminjaman.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-heart"></i></div> Peminjaman Barang
-                        </a>
-                        <a class="nav-link active" href="event.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div> Kelola Event
-                        </a>
-                        <?php if($_SESSION['role'] == 'admin') { ?>
-                        <a class="nav-link" href="admin.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div> Manajemen Admin
-                        </a>
-                        <?php } ?>
-                        <a class="nav-link" href="logout.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div> Logout
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <?php require 'includes/sidebar.php'; ?>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Tambah Pemasukan Barang per Event</h1>
-                    <div class="card mb-4">
+                    <h1 class="mt-4">Tambah Barang yang digunakan </h1>
+                    <div class="card my-4">
+                        <div class="card-header">
+                            <a href="event.php" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </a>
+                        </div>
                         <div class="card-body">
                             <form method="post">
                                 <div class="form-group">
@@ -76,7 +58,7 @@ require 'includes/cek.php';
                                 <h5>Detail Barang:</h5>
                                 <div id="item-container">
                                     </div>
-                                <button type="button" class="btn btn-secondary mt-2" onclick="addItemRow()">
+                                <button type="button" class="btn btn-info mt-2" onclick="addItemRow()">
                                     <i class="fas fa-plus"></i> Tambah Barang Lain
                                 </button>
                                 <hr>
@@ -86,15 +68,22 @@ require 'includes/cek.php';
                     </div>
                 </div>
             </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Ruberman Inventory 2025</div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
     <template id="item-row-template">
         <div class="item-row">
-            <select name="barangnya[]" class="form-control" style="width: 50%;" required>
+            <select name="barangnya[]" class="form-control" required>
                 <option value="">Pilih Barang...</option>
                 <?php
-                $ambilsemuadata = mysqli_query($conn, "SELECT * FROM stock");
+                $ambilsemuadata = mysqli_query($conn, "SELECT * FROM stock ORDER BY namabarang ASC");
                 while($fetcharray = mysqli_fetch_array($ambilsemuadata)){
                     $idbarangnya = $fetcharray['idbarang'];
                     $namabarangnya = $fetcharray['namabarang'];
@@ -103,8 +92,8 @@ require 'includes/cek.php';
                 <option value="<?=$idbarangnya;?>"><?=$namabarangnya;?> (Stok: <?=$stocknya;?>)</option>
                 <?php } ?>
             </select>
-            <input type="number" name="qty[]" placeholder="Jumlah" class="form-control" style="width: 20%;" required min="1">
-            <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">
+            <input type="number" name="qty[]" placeholder="Jumlah" class="form-control" required min="1">
+            <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.remove()">
                 <i class="fas fa-trash"></i>
             </button>
         </div>
@@ -119,8 +108,6 @@ require 'includes/cek.php';
     // Tambahkan satu baris saat halaman dimuat
     window.onload = addItemRow;
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 </html>
