@@ -1,0 +1,99 @@
+/* =================================================================== */
+/* FILE CSS RESPONSIVE UNTUK RUBERMAN INVENTORY                      */
+/* =================================================================== */
+
+/* Aturan untuk layar kecil (HP) - di bawah 768px */
+@media (max-width: 768px) {
+
+    /* Mengecilkan judul utama di halaman agar tidak terlalu besar di HP */
+    .container-fluid h1.mt-4 {
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+
+    /* Menyesuaikan header kustom agar lebih ringkas di mobile */
+    .custom-header-masuk, .custom-header-keluar, .custom-header-admin {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+        text-align: left;
+    }
+
+    .header-shape, .header-shape-admin {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+    }
+
+    .header-icon, .header-icon-admin {
+        font-size: 1.8rem;
+    }
+
+    .header-title, .header-title-admin {
+        font-size: 1.6rem;
+    }
+
+    .header-subtitle, .header-subtitle-admin {
+        font-size: 0.9rem;
+    }
+
+    /* Membuat tombol di card-header memenuhi lebar layar agar mudah di-klik */
+    .card-header .btn {
+        display: block;
+        width: 100%;
+    }
+    /* Memberi jarak jika ada lebih dari satu tombol */
+    .card-header .btn + .btn {
+        margin-top: 10px;
+    }
+
+    /* Memastikan tabel bisa di-scroll ke samping jika tidak muat */
+    .card-body {
+        overflow-x: auto;
+    }
+
+    /* Menyesuaikan ukuran font di dalam modal agar lebih nyaman dibaca */
+    .modal-body, .modal-title {
+        font-size: 0.95rem;
+    }
+    
+    /* Mengurangi padding pada container utama agar lebih banyak ruang untuk konten */
+    .container-fluid.px-4 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    /* Menyesuaikan tampilan footer */
+    footer.py-4 {
+        text-align: center;
+    }
+    footer .small {
+        flex-direction: column;
+    }
+}
+
+/* Aturan untuk layar sangat kecil - di bawah 576px */
+@media (max-width: 576px) {
+    /* Lebih kecilkan lagi font judul */
+    .header-title, .header-title-admin {
+        font-size: 1.4rem;
+    }
+
+    .welcome-card h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .welcome-card p {
+        font-size: 1rem !important;
+    }
+    
+    /* Membuat form di dalam modal lebih rapi */
+    .modal-body .form-control {
+        margin-bottom: 1rem;
+    }
+
+    /* Memastikan gambar produk di tabel tidak terlalu besar */
+    .zoomable {
+        width: 60px;
+    }
+}
