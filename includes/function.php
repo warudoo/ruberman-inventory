@@ -252,38 +252,47 @@ if(isset($_POST['barangdikembalikan'])){
 if(isset($_POST['addnewevent'])){
     $nama_event = $_POST['nama_event'];
     $penanggung_jawab = $_POST['penanggung_jawab'];
-    
+
     mysqli_begin_transaction($conn);
     try {
         mysqli_query($conn, "INSERT INTO event (nama_event, penanggung_jawab) VALUES ('$nama_event', '$penanggung_jawab')");
         $id_event_baru = mysqli_insert_id($conn);
-        
+
         $barangnya = $_POST['barangnya'];
         $qty = $_POST['qty'];
-        
+
         for($i = 0; $i < count($barangnya); $i++){
             $idbarang = $barangnya[$i];
             $jumlah = $qty[$i];
-            
-            // Masukkan ke detail_event
+
+            // 🔒 CEK STOK SAAT INI
+            $cek_stok = mysqli_query($conn, "SELECT stock FROM stock WHERE idbarang = '$idbarang'");
+            $data_stok = mysqli_fetch_assoc($cek_stok);
+            $stok_sekarang = $data_stok['stock'];
+
+            if($jumlah > $stok_sekarang){
+                throw new Exception("Jumlah barang melebihi stok yang tersedia untuk ID Barang: $idbarang. Stok: $stok_sekarang, diminta: $jumlah");
+            }
+
+            // Simpan ke detail_event
             mysqli_query($conn, "INSERT INTO detail_event (id_event, idbarang, qty) VALUES ('$id_event_baru', '$idbarang', '$jumlah')");
 
-            // --- PERUBAHAN DI SINI ---
-            // Catat sebagai BARANG KELUAR, bukan barang masuk
-            $penerima_keluar = "Untuk Event: " . $nama_event;
+            // Simpan ke barang keluar
+            $penerima_keluar = substr("Untuk Event: " . $nama_event, 0, 100); // hindari melebihi varchar(100)
             mysqli_query($conn, "INSERT INTO keluar (idbarang, penerima, qty) VALUES ('$idbarang', '$penerima_keluar', '$jumlah')");
-            // --- AKHIR PERUBAHAN ---
-            
+
+            // Update stock
             recalculateStock($idbarang, $conn);
         }
-        
+
         mysqli_commit($conn);
-        header('location:event.php');
+        header('Location: event.php');
     } catch (Exception $e) {
         mysqli_rollback($conn);
-        echo '<script>alert("Terjadi kesalahan: ' . $e->getMessage() . '"); window.location.href="masuk_event.php";</script>';
+        echo '<script>alert("Gagal: ' . $e->getMessage() . '"); window.location.href="masuk_event.php";</script>';
     }
 }
+
 
 if(isset($_POST['kembalikan_barang_event'])){
     $id_detail = (int)$_POST['id_detail'];
